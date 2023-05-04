@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2023-04-28T09:59:36 -->
+<!-- 2023-04-28T10:53:22 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="holydays" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df907bb6-4919-4728-a652-3729cfd9d5af">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data XML Adapter "/>
 	<queryString language="xPath">
@@ -19,24 +19,63 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="24" width="100" height="30" uuid="4cda0479-dddb-4c6c-8ff1-a7659a33b2b2"/>
+				<textElement>
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Holydays]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="430" y="32" width="100" height="30" uuid="3fb145ee-d0fa-41f6-9511-46779fa86f0e"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="32" width="100" height="30" uuid="dcab6e10-a21c-4ebe-9c4f-e8cf6e57b66a"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Country]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="32" width="100" height="30" uuid="c7328198-33c9-451b-8bef-830704db5d36"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="48" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="100" height="30" uuid="59d72c47-b09f-41f2-b0d2-78938411a0dc"/>
+				<textFieldExpression><![CDATA[$F{COUNTRY_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="100" height="30" uuid="77facd08-eae3-4924-af45-881e92b00c68"/>
+				<textFieldExpression><![CDATA[$F{DATE_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="100" height="30" uuid="ee2cbda6-9d7d-4e95-94f7-4e018cf6ee67"/>
+				<textFieldExpression><![CDATA[$F{NAME_1}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="13" width="300" height="30" uuid="85d8ebf5-8d4c-4575-bae6-4b8a07ca16bc"/>
+				<textFieldExpression><![CDATA["Report Generated on: "+new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>

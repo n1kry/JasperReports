@@ -1,15 +1,15 @@
-package dao;
+package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class HolidayDBConnection {
-    private final String url = "jdbc:postgresql://localhost:5433/holiday";
-    private final String user = "postgres";
-    private final String password = "1212";
+    private static final String URL = "jdbc:postgresql://localhost:5433/holiday";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "1212";
 
-    public Connection connect() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
