@@ -1,5 +1,6 @@
 package dao;
 
+import constants.DBConsts;
 import util.HolidayDBConnection;
 
 import java.sql.Connection;
@@ -15,10 +16,9 @@ public class HolidayDao implements IHolidayDao{
 
     @Override
     public ResultSet findAll() {
-        String QUERY = "SELECT * FROM holidays";
         try (Connection connection = DB_CONNECTION.getConnection()) {
             Statement stmt = connection.createStatement();
-            return stmt.executeQuery(QUERY);
+            return stmt.executeQuery(DBConsts.SELECT_ALL_QUERY);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -26,10 +26,9 @@ public class HolidayDao implements IHolidayDao{
 
     @Override
     public ResultSet findAllByMonths() {
-        String QUERY = "SELECT id, country, name, EXTRACT(MONTH FROM date) AS date FROM holidays";
         try (Connection connection = DB_CONNECTION.getConnection()) {
             Statement stmt = connection.createStatement();
-            return stmt.executeQuery(QUERY);
+            return stmt.executeQuery(DBConsts.SELECT_ALL_WITH_MONTH_NUMBERS_QUERY);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -37,14 +36,9 @@ public class HolidayDao implements IHolidayDao{
 
     @Override
     public ResultSet countAllHolidaysPerMonth() {
-        String QUERY = "SELECT country, EXTRACT(MONTH FROM date) AS direction , TO_CHAR(date, 'Mon') AS month, COUNT(name) AS count " +
-                        "FROM holidays " +
-                        "GROUP BY direction, month, country " +
-                        "ORDER BY direction";
-//        String QUERY = "SELECT country, EXTRACT(MONTH FROM date) AS month, COUNT(name) AS count FROM holidays GROUP BY month, country ORDER BY month";
         try (Connection connection = DB_CONNECTION.getConnection()) {
             Statement stmt = connection.createStatement();
-            return stmt.executeQuery(QUERY);
+            return stmt.executeQuery(DBConsts.SELECT_COUNT_HOLIDAYS_BY_MONTH_NAME);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

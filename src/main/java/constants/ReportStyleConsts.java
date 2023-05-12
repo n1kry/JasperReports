@@ -1,7 +1,8 @@
-package util;
+package constants;
 
 import net.sf.dynamicreports.report.builder.style.BorderBuilder;
 import net.sf.dynamicreports.report.builder.style.StyleBuilder;
+import net.sf.dynamicreports.report.constant.HorizontalTextAlignment;
 
 import java.awt.*;
 
@@ -22,6 +23,7 @@ public final class ReportStyleConsts {
     public static final StyleBuilder CELLS_BORDERED = stl.style().setBackgroundColor(new Color(206,228,242)).setBorder(BORDER_AROUND);
     public static final StyleBuilder GRAND_TOTAL_BORDERED = stl.style().setBackgroundColor(new Color(255,213,227)).setBorder(BORDER_AROUND);
     public static final StyleBuilder TOTAL_BORDERED = stl.style().setBackgroundColor(new Color(255,196,206)).setBorder(BORDER_AROUND).bold();
+    public static final StyleBuilder TOTAL_BORDERED_RIGHT = stl.style().setBackgroundColor(new Color(255,196,206)).setBorder(BORDER_AROUND).bold().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT);
     public static final StyleBuilder TITLE_STYLE = stl.style().bold().setFontSize(19);
     public static final StyleBuilder DETAIL_BORDERED = stl.style().setLeftPadding(2).setBorder(BORDER_AROUND);
 }

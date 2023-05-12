@@ -6,8 +6,9 @@ import model.Holiday;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.*;
+
+import static constants.JasperConsts.*;
 
 public class HolidayService {
     private final IHolidayDao dao = new HolidayDao();
@@ -17,9 +18,9 @@ public class HolidayService {
         List<Map<String,?>> maps = new ArrayList<>();
         while(resultSet.next()) {
                 Map<String,Object> map = new HashMap<>();
-                map.put("country", resultSet.getString("country"));
-                map.put("date", resultSet.getDate("date"));
-                map.put("name", resultSet.getString("name"));
+                map.put(COUNTRY_FIELD, resultSet.getString(COUNTRY_FIELD));
+                map.put(DATE_FIELD, resultSet.getDate(DATE_FIELD));
+                map.put(NAME_FIELD, resultSet.getString(NAME_FIELD));
                 maps.add(map);
         }
         return maps;
@@ -30,9 +31,9 @@ public class HolidayService {
         List<Holiday> holidays = new ArrayList<>();
         while (resultSet.next()) {
             Holiday holiday = new Holiday();
-            holiday.setCountry(resultSet.getString("country"));
-            holiday.setDate(resultSet.getDate("date"));
-            holiday.setName(resultSet.getString("name"));
+            holiday.setCountry(resultSet.getString(COUNTRY_FIELD));
+            holiday.setDate(resultSet.getDate(DATE_FIELD));
+            holiday.setName(resultSet.getString(NAME_FIELD));
             holidays.add(holiday);
         }
         return holidays;

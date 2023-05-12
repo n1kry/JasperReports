@@ -1,15 +1,15 @@
 package reports;
 
+import constants.JasperConsts;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.constant.Calculation;
-import net.sf.dynamicreports.report.constant.HorizontalAlignment;
-import net.sf.dynamicreports.report.constant.HorizontalTextAlignment;
 import net.sf.dynamicreports.report.exception.DRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import services.HolidayService;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
-import static util.ReportStyleConsts.*;
+import static constants.ReportStyleConsts.*;
+import static constants.JasperConsts.*;
 
 public class CrosstabReport implements Reportable {
 
@@ -20,18 +20,18 @@ public class CrosstabReport implements Reportable {
         JRResultSetDataSource resultSetDataSource = new JRResultSetDataSource(service.findAllByMonths());
         JRResultSetDataSource resultSetDataSourceChart = new JRResultSetDataSource(service.countAllHolidaysPerMonth());
 
-        TextColumnBuilder<Integer> monthColumn = col.column("month", "date",type.integerType());
+        TextColumnBuilder<Integer> monthColumn = col.column(MONTH_FIELD, DATE_FIELD,type.integerType());
 
         try {
             report()
-                    .title(cmp.horizontalList(cmp.text("Holiday").setStyle(TITLE_STYLE), cmp.image("src/main/resources/img/logo.png")))
+                    .title(cmp.horizontalList(cmp.text("Holiday").setStyle(TITLE_STYLE), cmp.image(IMAGE_PATH)))
                     .setTitleStyle(stl.style().setLeftPadding(20).setRightPadding(20).setTopPadding(20))
                     .summary(
                              ctab.crosstab()
                                     .headerCell(cmp.text("State/Messe").setStyle(BOLD_HEADER_CELL_BORDERED))
-                                    .addRowGroup(ctab.rowGroup("country", String.class).setTotalHeaderStyle(TOTAL_BORDERED.setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT)))
-                                    .addColumnGroup(ctab.columnGroup(monthColumn).setTotalHeaderStyle(TOTAL_BORDERED))
-                                    .addMeasure(ctab.measure("id", Integer.class, Calculation.COUNT))
+                                    .addRowGroup(ctab.rowGroup(COUNTRY_FIELD, String.class).setTotalHeaderStyle(TOTAL_BORDERED))
+                                    .addColumnGroup(ctab.columnGroup(monthColumn).setTotalHeaderStyle(TOTAL_BORDERED_RIGHT))
+                                    .addMeasure(ctab.measure(ID_FIELD, Integer.class, Calculation.COUNT))
                                     .setCellWidth(30)
                                     .setStyle(stl.style().setBottomPadding(40))
                                     .setCellStyle(CELLS_BORDERED)
@@ -40,10 +40,10 @@ public class CrosstabReport implements Reportable {
 
                             cht.barChart()
                                     .setTitle("Holidays per month:")
-                                    .setCategory(col.column("month", String.class))
+                                    .setCategory(col.column(MONTH_FIELD, String.class))
                                     .series(
-                                            cht.serie(col.column("Holidays count", "count", Integer.class))
-                                                    .setSeries(col.column("Countries", "country", String.class))
+                                            cht.serie(col.column("Holidays count", COUNT_FIELD, Integer.class))
+                                                    .setSeries(col.column("Countries", COUNTRY_FIELD, String.class))
                                     )
                                     .setDataSource(resultSetDataSourceChart)
                     )

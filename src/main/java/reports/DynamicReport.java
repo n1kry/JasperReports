@@ -1,10 +1,12 @@
 package reports;
+import constants.JasperConsts;
 import net.sf.dynamicreports.report.exception.DRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import services.HolidayService;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
-import static util.ReportStyleConsts.*;
+import static constants.ReportStyleConsts.*;
+import static constants.JasperConsts.*;
 
 public class DynamicReport implements Reportable{
     private final HolidayService service = new HolidayService();
@@ -27,15 +29,15 @@ public class DynamicReport implements Reportable{
                                     cmp.text("Date").setStyle(BOLD_BORDERED)
                                     ).setHeight(30).setStyle(HEADER_STYLE)
                     )
-                    .fields(field("country", type.stringType()),field("date", type.dateType()), field("name", type.stringType()))
+                    .fields(field(COUNTRY_FIELD, type.stringType()),field(DATE_FIELD, type.dateType()), field(NAME_FIELD, type.stringType()))
                     .detail(
                             cmp.horizontalList(
-                                    cmp.text(exp.jasperSyntax("$F{country}")).setStyle(DETAIL_BORDERED),
-                                    cmp.text(exp.jasperSyntax("$F{name}")).setMinHeight(30).setStyle(DETAIL_BORDERED),
-                                    cmp.text(exp.jasperSyntax("$F{date}")).setStyle(DETAIL_BORDERED)
+                                    cmp.text(exp.jasperSyntax("$F{"+COUNTRY_FIELD+"}")).setStyle(DETAIL_BORDERED),
+                                    cmp.text(exp.jasperSyntax("$F{"+NAME_FIELD+"}")).setMinHeight(30).setStyle(DETAIL_BORDERED),
+                                    cmp.text(exp.jasperSyntax("$F{"+DATE_FIELD+"}")).setStyle(DETAIL_BORDERED)
                                     )
                     )
-                    .title(cmp.horizontalList(cmp.text("Holiday").setStyle(TITLE_STYLE), cmp.image("src/main/resources/img/logo.png")))
+                    .title(cmp.horizontalList(cmp.text("Holiday").setStyle(TITLE_STYLE), cmp.image(JasperConsts.IMAGE_PATH)))
                     .pageFooter(cmp.pageXofY())
                     .show();
         } catch (DRException e) {
